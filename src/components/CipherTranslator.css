@@ -1,0 +1,165 @@
+.cipher-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.cipher-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cipher-header h1 {
+  color: #1a73e8;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.cipher-header p {
+  color: #5f6368;
+  font-size: 1.1rem;
+}
+
+.cipher-content {
+  display: flex;
+  gap: 2rem;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+
+.cipher-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cipher-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.cipher-panel-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #202124;
+}
+
+.char-count {
+  font-size: 0.9rem;
+  color: #5f6368;
+}
+
+.cipher-textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.cipher-textarea:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+}
+
+.cipher-textarea:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.cipher-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 60px;
+  position: relative;
+}
+
+.cipher-swap-button {
+  background-color: white;
+  border: 1px solid #dadce0;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.5rem;
+  color: #5f6368;
+}
+
+.cipher-swap-button:hover {
+  background-color: #f8f9fa;
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+.cipher-swap-button:active {
+  transform: scale(0.95);
+}
+
+.cipher-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.cipher-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #202124;
+}
+
+.cipher-button:hover {
+  background-color: #f8f9fa;
+  border-color: #1a73e8;
+}
+
+.cipher-button.primary {
+  background-color: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+}
+
+.cipher-button.primary:hover {
+  background-color: #1557b0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cipher-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cipher-divider {
+    min-width: auto;
+    margin: 0.5rem 0;
+  }
+
+  .cipher-swap-button {
+    transform: rotate(90deg);
+  }
+
+  .cipher-header h1 {
+    font-size: 2rem;
+  }
+
+  .cipher-textarea {
+    min-height: 200px;
+  }
+}
