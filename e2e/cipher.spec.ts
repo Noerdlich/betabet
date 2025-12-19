@@ -14,14 +14,14 @@ test.describe('Cipher Translator E2E Tests', () => {
     const ciphertextInput = page.getByTestId('ciphertext-input');
 
     await plaintextInput.fill('HELLO');
-    await expect(ciphertextInput).toHaveValue('ITSSG');
+    await expect(ciphertextInput).toHaveValue('MEVVI');
   });
 
   test('should decrypt text when typing in ciphertext field', async ({ page }) => {
     const plaintextInput = page.getByTestId('plaintext-input');
     const ciphertextInput = page.getByTestId('ciphertext-input');
 
-    await ciphertextInput.fill('ITSSG');
+    await ciphertextInput.fill('MEVVI');
     await expect(plaintextInput).toHaveValue('HELLO');
   });
 
@@ -30,7 +30,7 @@ test.describe('Cipher Translator E2E Tests', () => {
     const ciphertextInput = page.getByTestId('ciphertext-input');
 
     await plaintextInput.fill('Hello World');
-    await expect(ciphertextInput).toHaveValue('Itssg Vgksr');
+    await expect(ciphertextInput).toHaveValue('Mevvi Zikvd');
   });
 
   test('should handle German umlauts', async ({ page }) => {
@@ -68,11 +68,11 @@ test.describe('Cipher Translator E2E Tests', () => {
     const swapButton = page.getByTestId('swap-button');
 
     await plaintextInput.fill('HELLO');
-    await expect(ciphertextInput).toHaveValue('ITSSG');
+    await expect(ciphertextInput).toHaveValue('MEVVI');
 
     await swapButton.click();
 
-    await expect(plaintextInput).toHaveValue('ITSSG');
+    await expect(plaintextInput).toHaveValue('MEVVI');
     await expect(ciphertextInput).toHaveValue('HELLO');
   });
 
@@ -82,7 +82,7 @@ test.describe('Cipher Translator E2E Tests', () => {
     const clearButton = page.getByTestId('clear-button');
 
     await plaintextInput.fill('TEST');
-    await expect(ciphertextInput).toHaveValue('YTLY');
+    await expect(ciphertextInput).toHaveValue('OEQO');
 
     await clearButton.click();
 
@@ -125,7 +125,7 @@ test.describe('Cipher Translator E2E Tests', () => {
     await copyCipherButton.click();
 
     const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-    expect(clipboardText).toBe('YTLY');
+    expect(clipboardText).toBe('OEQO');
   });
 
   test('should handle long text', async ({ page }) => {
@@ -218,6 +218,6 @@ test.describe('Accessibility', () => {
     await page.keyboard.type('TEST');
     
     const ciphertextInput = page.getByTestId('ciphertext-input');
-    await expect(ciphertextInput).toHaveValue('YTLY');
+    await expect(ciphertextInput).toHaveValue('OEQO');
   });
 });

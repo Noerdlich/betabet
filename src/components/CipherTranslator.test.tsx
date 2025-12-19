@@ -40,7 +40,7 @@ describe('CipherTranslator', () => {
       await user.type(plaintextInput, 'HELLO');
 
       expect(plaintextInput.value).toBe('HELLO');
-      expect(ciphertextInput.value).toBe('ITSSG');
+      expect(ciphertextInput.value).toBe('MEVVI');
     });
 
     it('should update character count when typing', async () => {
@@ -63,7 +63,7 @@ describe('CipherTranslator', () => {
 
       await user.type(plaintextInput, 'ÄÖÜ');
 
-      expect(ciphertextInput.value).toBe('ÜÄÖ');
+      expect(ciphertextInput.value).toBe('ÄÖÜ');
     });
 
     it('should preserve case', async () => {
@@ -75,7 +75,7 @@ describe('CipherTranslator', () => {
 
       await user.type(plaintextInput, 'Hello');
 
-      expect(ciphertextInput.value).toBe('Itssg');
+      expect(ciphertextInput.value).toBe('Mevvi');
     });
 
     it('should preserve special characters and numbers', async () => {
@@ -87,7 +87,7 @@ describe('CipherTranslator', () => {
 
       await user.type(plaintextInput, 'Test 123!');
 
-      expect(ciphertextInput.value).toBe('Ytly 123!');
+      expect(ciphertextInput.value).toBe('Oeqo 123!');
     });
   });
 
@@ -99,9 +99,9 @@ describe('CipherTranslator', () => {
       const plaintextInput = screen.getByTestId('plaintext-input') as HTMLTextAreaElement;
       const ciphertextInput = screen.getByTestId('ciphertext-input') as HTMLTextAreaElement;
 
-      await user.type(ciphertextInput, 'ITSSG');
+      await user.type(ciphertextInput, 'MEVVI');
 
-      expect(ciphertextInput.value).toBe('ITSSG');
+      expect(ciphertextInput.value).toBe('MEVVI');
       expect(plaintextInput.value).toBe('HELLO');
     });
 
@@ -138,11 +138,11 @@ describe('CipherTranslator', () => {
       await user.type(plaintextInput, 'HELLO');
       
       expect(plaintextInput.value).toBe('HELLO');
-      expect(ciphertextInput.value).toBe('ITSSG');
+      expect(ciphertextInput.value).toBe('MEVVI');
 
       await user.click(swapButton);
 
-      expect(plaintextInput.value).toBe('ITSSG');
+      expect(plaintextInput.value).toBe('MEVVI');
       expect(ciphertextInput.value).toBe('HELLO');
     });
   });
@@ -159,7 +159,7 @@ describe('CipherTranslator', () => {
       await user.type(plaintextInput, 'TEST');
       
       expect(plaintextInput.value).toBe('TEST');
-      expect(ciphertextInput.value).toBe('YTLY');
+      expect(ciphertextInput.value).toBe('OEQO');
 
       await user.click(clearButton);
 

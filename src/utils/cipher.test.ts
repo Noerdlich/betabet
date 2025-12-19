@@ -3,31 +3,31 @@ import { encrypt, decrypt, createReverseMapping, validateMapping, DEFAULT_CIPHER
 describe('cipher', () => {
   describe('encrypt', () => {
     it('should encrypt simple text', () => {
-      expect(encrypt('HELLO')).toBe('ITSSG');
+      expect(encrypt('HELLO')).toBe('MEVVI');
     });
 
     it('should preserve case', () => {
-      expect(encrypt('Hello')).toBe('Itssg');
-      expect(encrypt('hello')).toBe('itssg');
-      expect(encrypt('HELLO')).toBe('ITSSG');
+      expect(encrypt('Hello')).toBe('Mevvi');
+      expect(encrypt('hello')).toBe('mevvi');
+      expect(encrypt('HELLO')).toBe('MEVVI');
     });
 
     it('should handle German umlauts', () => {
-      expect(encrypt('ÄÖÜSS')).toBe('ÜÄÖLL');
-      expect(encrypt('äöü')).toBe('üäö');
+      expect(encrypt('ÄÖÜSS')).toBe('ÄÖÜQQ');
+      expect(encrypt('äöü')).toBe('äöü');
     });
 
     it('should preserve spaces', () => {
-      expect(encrypt('HELLO WORLD')).toBe('ITSSG VGKSR');
+      expect(encrypt('HELLO WORLD')).toBe('MEVVI ZIKVD');
     });
 
     it('should preserve numbers', () => {
-      expect(encrypt('TEST123')).toBe('YTLY123');
+      expect(encrypt('TEST123')).toBe('OEQO123');
     });
 
     it('should preserve special characters', () => {
-      expect(encrypt('HELLO, WORLD!')).toBe('ITSSG, VGKSR!');
-      expect(encrypt('TEST@2024')).toBe('YTLY@2024');
+      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI, ZIKVD!');
+      expect(encrypt('TEST@2024')).toBe('OEQO@2024');
     });
 
     it('should handle empty string', () => {
@@ -35,7 +35,7 @@ describe('cipher', () => {
     });
 
     it('should handle mixed content', () => {
-      expect(encrypt('Das ist ein Test!')).toBe('Rql oly tof Ytly!');
+      expect(encrypt('Das ist ein Test!')).toBe('Daq nqo enh Oeqo!');
     });
   });
 

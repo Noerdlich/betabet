@@ -46,11 +46,13 @@ const CipherTranslator: React.FC = () => {
   };
 
   return (
-    <div className="cipher-container">
-      <div className="cipher-header">
+    <>
+      <div className="App-header">
         <h1>Alphabet Cipher</h1>
-        <p>Verschlüsseln und entschlüsseln Sie Texte mit Substitutionschiffre</p>
+        <p className="subtitle">Verschlüsseln und entschlüsseln Sie Texte mit Substitutionschiffre</p>
       </div>
+      <div className="App-main">
+        <div className="cipher-container">
 
       <div className="cipher-content">
         <div className="cipher-panel">
@@ -128,7 +130,9 @@ const CipherTranslator: React.FC = () => {
           🗑️ Löschen
         </button>
       </div>
-    </div>
+        </div>
+      </div>
+    </>
   );
 };
 
