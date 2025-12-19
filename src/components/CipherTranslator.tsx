@@ -48,8 +48,8 @@ const CipherTranslator: React.FC = () => {
   return (
     <>
       <div className="App-header">
-        <h1>Alphabet Cipher</h1>
-        <p className="subtitle">Verschlüsseln und entschlüsseln Sie Texte mit Substitutionschiffre</p>
+        <h1>Alphabet v1.1</h1>
+        <p className="subtitle">Chiffrieren und dechiffrieren von Texten</p>
       </div>
       <div className="App-main">
         <div className="cipher-container">
