@@ -6,7 +6,7 @@ test.describe('Cipher Translator E2E Tests', () => {
   });
 
   test('should display the application title', async ({ page }) => {
-    await expect(page.getByText('Alphabet v1.1')).toBeVisible();
+    await expect(page.getByText('Betabet')).toBeVisible();
   });
 
   test('should encrypt text when typing in plaintext field', async ({ page }) => {

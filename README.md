@@ -1,8 +1,8 @@
-# Alphabet Cipher
+# Betabet Cipher
 
 Eine moderne Web-Anwendung zur Ver- und Entschlüsselung von Texten mittels Substitutionschiffre. Die Anwendung bietet eine intuitive Benutzeroberfläche ähnlich wie Google Translate oder DeepL.
 
-🔗 **Live Demo**: [https://noerdlich.github.io/alphabet](https://noerdlich.github.io/alphabet)
+🔗 **Live Demo**: [https://noerdlich.github.io/betabet](https://noerdlich.github.io/betabet)
 
 ## Features
 
@@ -38,8 +38,8 @@ Eine moderne Web-Anwendung zur Ver- und Entschlüsselung von Texten mittels Subs
 
 ```bash
 # Repository klonen
-git clone https://github.com/Noerdlich/alphabet.git
-cd alphabet
+git clone https://github.com/Noerdlich/betabet.git
+cd betabet
 
 # Dependencies installieren
 npm install
@@ -92,7 +92,7 @@ export const DEFAULT_CIPHER_MAPPING: CipherMapping = {
 ## Projektstruktur
 
 ```
-alphabet/
+betabet/
 ├── public/              # Statische Dateien
 ├── src/
 │   ├── components/      # React Komponenten
@@ -192,7 +192,7 @@ MIT License
 
 **Noerdlich**
 - GitHub: [@Noerdlich](https://github.com/Noerdlich)
-- Repository: [alphabet](https://github.com/Noerdlich/alphabet)
+- Repository: [betabet](https://github.com/Noerdlich/betabet)
 
 ## Mitwirken
 
