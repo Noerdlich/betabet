@@ -48,7 +48,7 @@ const CipherTranslator: React.FC = () => {
   return (
     <>
       <div className="App-header">
-        <h1>Alphabet v1.1</h1>
+        <h1>Betabet</h1>
         <p className="subtitle">Chiffrieren und dechiffrieren von Texten</p>
       </div>
       <div className="App-main">
