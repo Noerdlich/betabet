@@ -38,10 +38,6 @@ export const DEFAULT_CIPHER_MAPPING: CipherMapping = {
   'X': 'U',
   'Y': 'Y',
   'Z': 'W',
-  'Ä': 'Ä',
-  'Ö': 'Ö',
-  'Ü': 'Ü',
-  'ß': 'ß',
   '0': '8',
   '1': '3',
   '2': '1',
@@ -51,7 +47,45 @@ export const DEFAULT_CIPHER_MAPPING: CipherMapping = {
   '6': '6',
   '7': '7',
   '8': '4',
-  '9': '2'
+  '9': '2',
+  '!': '!',
+  '"': 'Ä',
+  '#': '"',
+  '$': '\'',
+  '%': '@',
+  '&': '\\',
+  '\'': '-',
+  '(': '$',
+  ')': ':',
+  '*': '[',
+  '+': ']',
+  ',': '€',
+  '-': '?',
+  '.': '{',
+  '/': '}',
+  ':': '=',
+  ';': '°',
+  '<': '>',
+  '=': '^',
+  '>': '(',
+  '?': ')',
+  '@': '<',
+  '[': ',',
+  '\\': 'Ö',
+  ']': '§',
+  '^': '+',
+  '_': '%',
+  '{': '.',
+  '|': '#',
+  '}': '/',
+  '~': ';',
+  '€': '*',
+  '°': '|',
+  '§': 'ß',
+  'ß': '~',
+  'Ä': 'Ü',
+  'Ö': '&',
+  'Ü': '_',
 };
 
 /**
@@ -67,23 +101,37 @@ export const createReverseMapping = (mapping: CipherMapping): CipherMapping => {
 
 /**
  * Encrypts text using the provided cipher mapping
- * - Converts to uppercase for mapping
- * - Preserves spaces, numbers, and special characters
- * - Maintains original case in output
+ * - Preserves spaces and unmapped characters
+ * - Handles both uppercase and lowercase letters
+ * - Supports special characters and umlauts
+ * - Uses a special marker (◌) to preserve case when mapping to non-letter characters
  */
 export const encrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MAPPING): string => {
   let result = '';
   
   for (const char of text) {
-    const upperChar = char.toUpperCase();
-    
-    if (mapping[upperChar]) {
-      // Apply cipher mapping and preserve original case
-      const encrypted = mapping[upperChar];
-      result += char === char.toLowerCase() ? encrypted.toLowerCase() : encrypted;
+    // First check if the character itself is in the mapping (lowercase umlauts, special chars)
+    if (mapping[char]) {
+      result += mapping[char];
     } else {
-      // Keep unchanged (spaces, numbers, punctuation, etc.)
-      result += char;
+      // Try uppercase version for letters
+      const upperChar = char.toUpperCase();
+      
+      if (mapping[upperChar]) {
+        const encrypted = mapping[upperChar];
+        const wasLowerCase = char === char.toLowerCase() && char !== char.toUpperCase();
+        
+        // If original was lowercase and encrypted value has no case, add marker
+        if (wasLowerCase && encrypted === encrypted.toUpperCase() && encrypted === encrypted.toLowerCase()) {
+          result += '◌' + encrypted;
+        } else {
+          // Normal case preservation for letters
+          result += wasLowerCase ? encrypted.toLowerCase() : encrypted;
+        }
+      } else {
+        // Keep unchanged (spaces, unmapped characters, etc.)
+        result += char;
+      }
     }
   }
   
@@ -92,10 +140,45 @@ export const encrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MA
 
 /**
  * Decrypts text using the reverse of the provided cipher mapping
+ * - Handles the special marker (◌) for case preservation
  */
 export const decrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MAPPING): string => {
   const reverseMapping = createReverseMapping(mapping);
-  return encrypt(text, reverseMapping);
+  let result = '';
+  let i = 0;
+  
+  while (i < text.length) {
+    const char = text[i];
+    
+    // Check for lowercase marker
+    if (char === '◌' && i + 1 < text.length) {
+      const nextChar = text[i + 1];
+      if (reverseMapping[nextChar]) {
+        result += reverseMapping[nextChar].toLowerCase();
+        i += 2;
+        continue;
+      }
+    }
+    
+    // Normal decryption
+    if (reverseMapping[char]) {
+      result += reverseMapping[char];
+    } else {
+      const upperChar = char.toUpperCase();
+      
+      if (reverseMapping[upperChar]) {
+        const decrypted = reverseMapping[upperChar];
+        const wasLowerCase = char === char.toLowerCase() && char !== char.toUpperCase();
+        result += wasLowerCase ? decrypted.toLowerCase() : decrypted;
+      } else {
+        result += char;
+      }
+    }
+    
+    i++;
+  }
+  
+  return result;
 };
 
 /**

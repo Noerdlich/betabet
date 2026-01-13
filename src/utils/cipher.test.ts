@@ -13,8 +13,8 @@ describe('cipher', () => {
     });
 
     it('should handle German umlauts', () => {
-      expect(encrypt('ÄÖÜSS')).toBe('ÄÖÜQQ');
-      expect(encrypt('äöü')).toBe('äöü');
+      expect(encrypt('ÄÖÜSS')).toBe('Ü&_QQ');
+      expect(encrypt('äöü')).toBe('ü◌&◌_');
     });
 
     it('should preserve spaces', () => {
@@ -26,7 +26,60 @@ describe('cipher', () => {
     });
 
     it('should preserve special characters', () => {
-      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI, ZIKVD!');
+      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI€ ZIKVD!');
+    });
+
+    it('should encrypt special characters according to mapping', () => {
+      // Test some of the new special character mappings
+      expect(encrypt('"')).toBe('Ä');
+      expect(encrypt('#')).toBe('"');
+      expect(encrypt('$')).toBe('\'');
+      expect(encrypt('%')).toBe('@');
+      expect(encrypt('&')).toBe('\\');
+      expect(encrypt('\'')).toBe('-');
+      expect(encrypt('(')).toBe('$');
+      expect(encrypt(')')).toBe(':');
+      expect(encrypt('*')).toBe('[');
+      expect(encrypt('+')).toBe(']');
+      expect(encrypt(',')).toBe('€');
+      expect(encrypt('-')).toBe('?');
+      expect(encrypt('.')).toBe('{');
+      expect(encrypt('/')).toBe('}');
+    });
+
+    it('should encrypt more special characters', () => {
+      expect(encrypt(':')).toBe('=');
+      expect(encrypt(';')).toBe('°');
+      expect(encrypt('<')).toBe('>');
+      expect(encrypt('=')).toBe('^');
+      expect(encrypt('>')).toBe('(');
+      expect(encrypt('?')).toBe(')');
+      expect(encrypt('@')).toBe('<');
+      expect(encrypt('[')).toBe(',');
+      expect(encrypt('\\')).toBe('Ö');
+      expect(encrypt(']')).toBe('§');
+      expect(encrypt('^')).toBe('+');
+      expect(encrypt('_')).toBe('%');
+    });
+
+    it('should encrypt remaining special characters', () => {
+      expect(encrypt('{')).toBe('.');
+      expect(encrypt('|')).toBe('#');
+      expect(encrypt('}')).toBe('/');
+      expect(encrypt('~')).toBe(';');
+      expect(encrypt('€')).toBe('*');
+      expect(encrypt('°')).toBe('|');
+      expect(encrypt('§')).toBe('ß');
+    });
+
+    it('should encrypt lowercase German special characters', () => {
+      expect(encrypt('ß')).toBe('~');
+      expect(encrypt('Ä')).toBe('Ü');
+      expect(encrypt('Ö')).toBe('&');
+      expect(encrypt('Ü')).toBe('_');
+      expect(encrypt('ä')).toBe('ü');
+      expect(encrypt('ö')).toBe('◌&');
+      expect(encrypt('ü')).toBe('◌_');
     });
 
     it('should handle empty string', () => {
@@ -123,6 +176,57 @@ describe('cipher', () => {
         const decrypted = decrypt(encrypted);
         expect(decrypted).toBe(testCase);
       });
+    });
+
+    it('should be reversible for special characters', () => {
+      const specialChars = '!"#$%&\'()*+,-./:;<=>?@[\\]^_{|}~€°§';
+      const encrypted = encrypt(specialChars);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(specialChars);
+    });
+
+    it('should be reversible for complex mixed text', () => {
+      const complexText = 'Test: 100% @ {Zeit} = [Erfolg]! "Gut" & \'Super\' - €50 + $20';
+      const encrypted = encrypt(complexText);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(complexText);
+    });
+
+    it('should handle German umlauts bidirectionally', () => {
+      const germanText = 'äöüßÄÖÜ - Größe, Äpfel, Übung';
+      const encrypted = encrypt(germanText);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(germanText);
+    });
+  });
+
+  describe('special character edge cases', () => {
+    it('should handle text with only special characters', () => {
+      const specialOnly = '!@#$%^&*()';
+      const encrypted = encrypt(specialOnly);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(specialOnly);
+    });
+
+    it('should handle brackets and braces correctly', () => {
+      const brackets = '()[]{}<>';
+      const encrypted = encrypt(brackets);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(brackets);
+    });
+
+    it('should handle punctuation correctly', () => {
+      const punctuation = '.,;:!?-_';
+      const encrypted = encrypt(punctuation);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(punctuation);
+    });
+
+    it('should handle currency and math symbols', () => {
+      const symbols = '€$%^+=-@';
+      const encrypted = encrypt(symbols);
+      const decrypted = decrypt(encrypted);
+      expect(decrypted).toBe(symbols);
     });
   });
 });
