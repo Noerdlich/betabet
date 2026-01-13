@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/betabet/static/css/main.23284f97.css",
+    "main.js": "/betabet/static/js/main.9099ac62.js",
+    "static/js/453.c2ae3347.chunk.js": "/betabet/static/js/453.c2ae3347.chunk.js",
+    "index.html": "/betabet/index.html",
+    "main.23284f97.css.map": "/betabet/static/css/main.23284f97.css.map",
+    "main.9099ac62.js.map": "/betabet/static/js/main.9099ac62.js.map",
+    "453.c2ae3347.chunk.js.map": "/betabet/static/js/453.c2ae3347.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.23284f97.css",
+    "static/js/main.9099ac62.js"
+  ]
+}
