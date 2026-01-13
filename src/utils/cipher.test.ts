@@ -21,13 +21,12 @@ describe('cipher', () => {
       expect(encrypt('HELLO WORLD')).toBe('MEVVI ZIKVD');
     });
 
-    it('should preserve numbers', () => {
-      expect(encrypt('TEST123')).toBe('OEQO123');
+    it('should encrypt numbers', () => {
+      expect(encrypt('TEST123')).toBe('OEQO315');
     });
 
     it('should preserve special characters', () => {
       expect(encrypt('HELLO, WORLD!')).toBe('MEVVI, ZIKVD!');
-      expect(encrypt('TEST@2024')).toBe('OEQO@2024');
     });
 
     it('should handle empty string', () => {
@@ -114,6 +113,7 @@ describe('cipher', () => {
         'abcdefghijklmnopqrstuvwxyz',
         'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
         'äöüßÄÖÜ',
+        '1234567890',
         'The Quick Brown Fox Jumps Over 13 Lazy Dogs!',
         'Größe, Äpfel & Übung = 100%',
       ];

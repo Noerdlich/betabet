@@ -87,7 +87,7 @@ describe('CipherTranslator', () => {
 
       await user.type(plaintextInput, 'Test 123!');
 
-      expect(ciphertextInput.value).toBe('Oeqo 123!');
+      expect(ciphertextInput.value).toBe('Oeqo 315!');
     });
   });
 
