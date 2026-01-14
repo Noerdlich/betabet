@@ -49,43 +49,43 @@ export const DEFAULT_CIPHER_MAPPING: CipherMapping = {
   '8': '4',
   '9': '2',
   '!': '!',
-  '"': 'Ä',
-  '#': '"',
-  '$': '\'',
-  '%': '@',
-  '&': '\\',
-  '\'': '-',
-  '(': '$',
-  ')': ':',
-  '*': '[',
-  '+': ']',
-  ',': '€',
-  '-': '?',
-  '.': '{',
-  '/': '}',
-  ':': '=',
-  ';': '°',
-  '<': '>',
-  '=': '^',
-  '>': '(',
-  '?': ')',
-  '@': '<',
-  '[': ',',
-  '\\': 'Ö',
-  ']': '§',
-  '^': '+',
-  '_': '%',
-  '{': '.',
-  '|': '#',
-  '}': '/',
-  '~': ';',
-  '€': '*',
-  '°': '|',
-  '§': 'ß',
-  'ß': '~',
+  '"': '"',
+  '#': '\'',
+  '$': '@',
+  '%': '\\',
+  '&': '-',
+  '\'': '$',
+  '(': ':',
+  ')': '[',
+  '*': ']',
+  '+': '€',
+  ',': '?',
+  '-': '{',
+  '.': '}',
+  '/': '=',
+  ':': '°',
+  ';': '>',
+  '<': '^',
+  '=': '(',
+  '>': ')',
+  '?': '<',
+  '@': ',',
+  '[': '§',
+  '\\': '+',
+  ']': '%',
+  '^': '.',
+  '_': '#',
+  '{': '/',
+  '|': ';',
+  '}': '*',
+  '~': '|',
+  '€': 'ß',
+  '°': '~',
+  '§': '&',
+  'ß': '_',
   'Ä': 'Ü',
-  'Ö': '&',
-  'Ü': '_',
+  'Ö': 'Ä',
+  'Ü': 'Ö',
 };
 
 /**
@@ -104,13 +104,12 @@ export const createReverseMapping = (mapping: CipherMapping): CipherMapping => {
  * - Preserves spaces and unmapped characters
  * - Handles both uppercase and lowercase letters
  * - Supports special characters and umlauts
- * - Uses a special marker (◌) to preserve case when mapping to non-letter characters
  */
 export const encrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MAPPING): string => {
   let result = '';
   
   for (const char of text) {
-    // First check if the character itself is in the mapping (lowercase umlauts, special chars)
+    // First check if the character itself is in the mapping
     if (mapping[char]) {
       result += mapping[char];
     } else {
@@ -118,16 +117,10 @@ export const encrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MA
       const upperChar = char.toUpperCase();
       
       if (mapping[upperChar]) {
+        // Apply cipher mapping and preserve original case
         const encrypted = mapping[upperChar];
         const wasLowerCase = char === char.toLowerCase() && char !== char.toUpperCase();
-        
-        // If original was lowercase and encrypted value has no case, add marker
-        if (wasLowerCase && encrypted === encrypted.toUpperCase() && encrypted === encrypted.toLowerCase()) {
-          result += '◌' + encrypted;
-        } else {
-          // Normal case preservation for letters
-          result += wasLowerCase ? encrypted.toLowerCase() : encrypted;
-        }
+        result += wasLowerCase ? encrypted.toLowerCase() : encrypted;
       } else {
         // Keep unchanged (spaces, unmapped characters, etc.)
         result += char;
@@ -140,45 +133,10 @@ export const encrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MA
 
 /**
  * Decrypts text using the reverse of the provided cipher mapping
- * - Handles the special marker (◌) for case preservation
  */
 export const decrypt = (text: string, mapping: CipherMapping = DEFAULT_CIPHER_MAPPING): string => {
   const reverseMapping = createReverseMapping(mapping);
-  let result = '';
-  let i = 0;
-  
-  while (i < text.length) {
-    const char = text[i];
-    
-    // Check for lowercase marker
-    if (char === '◌' && i + 1 < text.length) {
-      const nextChar = text[i + 1];
-      if (reverseMapping[nextChar]) {
-        result += reverseMapping[nextChar].toLowerCase();
-        i += 2;
-        continue;
-      }
-    }
-    
-    // Normal decryption
-    if (reverseMapping[char]) {
-      result += reverseMapping[char];
-    } else {
-      const upperChar = char.toUpperCase();
-      
-      if (reverseMapping[upperChar]) {
-        const decrypted = reverseMapping[upperChar];
-        const wasLowerCase = char === char.toLowerCase() && char !== char.toUpperCase();
-        result += wasLowerCase ? decrypted.toLowerCase() : decrypted;
-      } else {
-        result += char;
-      }
-    }
-    
-    i++;
-  }
-  
-  return result;
+  return encrypt(text, reverseMapping);
 };
 
 /**

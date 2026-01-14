@@ -13,8 +13,8 @@ describe('cipher', () => {
     });
 
     it('should handle German umlauts', () => {
-      expect(encrypt('ÄÖÜSS')).toBe('Ü&_QQ');
-      expect(encrypt('äöü')).toBe('ü◌&◌_');
+      expect(encrypt('ÄÖÜSS')).toBe('ÜÄÖQQ');
+      expect(encrypt('äöü')).toBe('üäö');
     });
 
     it('should preserve spaces', () => {
@@ -26,60 +26,60 @@ describe('cipher', () => {
     });
 
     it('should preserve special characters', () => {
-      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI€ ZIKVD!');
+      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI? ZIKVD!');
     });
 
     it('should encrypt special characters according to mapping', () => {
       // Test some of the new special character mappings
-      expect(encrypt('"')).toBe('Ä');
-      expect(encrypt('#')).toBe('"');
-      expect(encrypt('$')).toBe('\'');
-      expect(encrypt('%')).toBe('@');
-      expect(encrypt('&')).toBe('\\');
-      expect(encrypt('\'')).toBe('-');
-      expect(encrypt('(')).toBe('$');
-      expect(encrypt(')')).toBe(':');
-      expect(encrypt('*')).toBe('[');
-      expect(encrypt('+')).toBe(']');
-      expect(encrypt(',')).toBe('€');
-      expect(encrypt('-')).toBe('?');
-      expect(encrypt('.')).toBe('{');
-      expect(encrypt('/')).toBe('}');
+      expect(encrypt('"')).toBe('"');
+      expect(encrypt('#')).toBe('\'');
+      expect(encrypt('$')).toBe('@');
+      expect(encrypt('%')).toBe('\\');
+      expect(encrypt('&')).toBe('-');
+      expect(encrypt('\'')).toBe('$');
+      expect(encrypt('(')).toBe(':');
+      expect(encrypt(')')).toBe('[');
+      expect(encrypt('*')).toBe(']');
+      expect(encrypt('+')).toBe('€');
+      expect(encrypt(',')).toBe('?');
+      expect(encrypt('-')).toBe('{');
+      expect(encrypt('.')).toBe('}');
+      expect(encrypt('/')).toBe('=');
     });
 
     it('should encrypt more special characters', () => {
-      expect(encrypt(':')).toBe('=');
-      expect(encrypt(';')).toBe('°');
-      expect(encrypt('<')).toBe('>');
-      expect(encrypt('=')).toBe('^');
-      expect(encrypt('>')).toBe('(');
-      expect(encrypt('?')).toBe(')');
-      expect(encrypt('@')).toBe('<');
-      expect(encrypt('[')).toBe(',');
-      expect(encrypt('\\')).toBe('Ö');
-      expect(encrypt(']')).toBe('§');
-      expect(encrypt('^')).toBe('+');
-      expect(encrypt('_')).toBe('%');
+      expect(encrypt(':')).toBe('°');
+      expect(encrypt(';')).toBe('>');
+      expect(encrypt('<')).toBe('^');
+      expect(encrypt('=')).toBe('(');
+      expect(encrypt('>')).toBe(')');
+      expect(encrypt('?')).toBe('<');
+      expect(encrypt('@')).toBe(',');
+      expect(encrypt('[')).toBe('§');
+      expect(encrypt('\\')).toBe('+');
+      expect(encrypt(']')).toBe('%');
+      expect(encrypt('^')).toBe('.');
+      expect(encrypt('_')).toBe('#');
     });
 
     it('should encrypt remaining special characters', () => {
-      expect(encrypt('{')).toBe('.');
-      expect(encrypt('|')).toBe('#');
-      expect(encrypt('}')).toBe('/');
-      expect(encrypt('~')).toBe(';');
-      expect(encrypt('€')).toBe('*');
-      expect(encrypt('°')).toBe('|');
-      expect(encrypt('§')).toBe('ß');
+      expect(encrypt('{')).toBe('/');
+      expect(encrypt('|')).toBe(';');
+      expect(encrypt('}')).toBe('*');
+      expect(encrypt('~')).toBe('|');
+      expect(encrypt('€')).toBe('ß');
+      expect(encrypt('°')).toBe('~');
+      expect(encrypt('§')).toBe('&');
     });
 
     it('should encrypt lowercase German special characters', () => {
-      expect(encrypt('ß')).toBe('~');
+      expect(encrypt('ß')).toBe('_');
       expect(encrypt('Ä')).toBe('Ü');
-      expect(encrypt('Ö')).toBe('&');
-      expect(encrypt('Ü')).toBe('_');
+      expect(encrypt('Ö')).toBe('Ä');
+      expect(encrypt('Ü')).toBe('Ö');
       expect(encrypt('ä')).toBe('ü');
-      expect(encrypt('ö')).toBe('◌&');
-      expect(encrypt('ü')).toBe('◌_');
+      expect(encrypt('ö')).toBe('ä');
+      expect(encrypt('ü')).toBe('ö');
     });
 
     it('should handle empty string', () => {

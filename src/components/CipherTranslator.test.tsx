@@ -63,7 +63,7 @@ describe('CipherTranslator', () => {
 
       await user.type(plaintextInput, 'ÄÖÜ');
 
-      expect(ciphertextInput.value).toBe('Ü&_');
+      expect(ciphertextInput.value).toBe('ÜÄÖ');
     });
 
     it('should preserve case', async () => {
