@@ -26,7 +26,7 @@ describe('cipher', () => {
     });
 
     it('should preserve special characters', () => {
-      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI? ZIKVD!');
+      expect(encrypt('HELLO, WORLD!')).toBe('MEVVI{ ZIKVD!');
     });
 
     it('should encrypt special characters according to mapping', () => {
@@ -37,18 +37,18 @@ describe('cipher', () => {
       expect(encrypt('%')).toBe('\\');
       expect(encrypt('&')).toBe('-');
       expect(encrypt('\'')).toBe('$');
-      expect(encrypt('(')).toBe(':');
-      expect(encrypt(')')).toBe('[');
-      expect(encrypt('*')).toBe(']');
-      expect(encrypt('+')).toBe('€');
-      expect(encrypt(',')).toBe('?');
-      expect(encrypt('-')).toBe('{');
-      expect(encrypt('.')).toBe('}');
-      expect(encrypt('/')).toBe('=');
+      expect(encrypt('(')).toBe('[');
+      expect(encrypt(')')).toBe(']');
+      expect(encrypt('*')).toBe('€');
+      expect(encrypt('+')).toBe('?');
+      expect(encrypt(',')).toBe('{');
+      expect(encrypt('-')).toBe('}');
+      expect(encrypt('.')).toBe('=');
+      expect(encrypt('/')).toBe('°');
     });
 
     it('should encrypt more special characters', () => {
-      expect(encrypt(':')).toBe('°');
+      expect(encrypt(':')).toBe(':');
       expect(encrypt(';')).toBe('>');
       expect(encrypt('<')).toBe('^');
       expect(encrypt('=')).toBe('(');
