@@ -7,7 +7,7 @@ describe('CipherTranslator', () => {
   describe('Initial Render', () => {
     it('should render the component', () => {
       render(<CipherTranslator />);
-      expect(screen.getByText('Betabet')).toBeInTheDocument();
+      expect(screen.getByAltText('Betabet Logo')).toBeInTheDocument();
     });
 
     it('should render both text areas', () => {
