@@ -49,7 +49,6 @@ const CipherTranslator: React.FC = () => {
     <>
       <div className="App-header">
         <h1>Betabet</h1>
-        <img src="/logo512.png" alt="Betabet Logo" className="app-logo" />
         <p className="subtitle">Chiffrieren und dechiffrieren von Texten</p>
       </div>
       <div className="App-main">
