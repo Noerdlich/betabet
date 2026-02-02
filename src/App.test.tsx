@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders cipher translator', () => {
   render(<App />);
-  const logoElement = screen.getByAltText(/Betabet Logo/i);
-  expect(logoElement).toBeInTheDocument();
+  const headingElement = screen.getByText(/Betabet/i);
+  expect(headingElement).toBeInTheDocument();
 });
