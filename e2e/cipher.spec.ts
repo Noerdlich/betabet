@@ -169,9 +169,12 @@ test.describe('Cipher Translator E2E Tests', () => {
     await plaintextInput.fill('Test 123 @#$ 456!');
     
     const cipherValue = await ciphertextInput.inputValue();
-    expect(cipherValue).toContain('123');
-    expect(cipherValue).toContain('@#$');
-    expect(cipherValue).toContain('456!');
+    // 1->3, 2->1, 3->5
+    expect(cipherValue).toContain('315');
+    // @->',', #->'\', $->'@'
+    expect(cipherValue).toContain(',\'@');
+    // 4->9, 5->0, 6->6, !->!
+    expect(cipherValue).toContain('906!');
   });
 });
 
@@ -184,7 +187,8 @@ test.describe('Responsive Design', () => {
     const ciphertextInput = page.getByTestId('ciphertext-input');
 
     await plaintextInput.fill('MOBILE');
-    await expect(ciphertextInput).toHaveValue('DGWOST');
+    // M->G, O->I, B->B, I->N, L->V, E->E
+    await expect(ciphertextInput).toHaveValue('GIBNVE');
   });
 
   test('should display swap button on mobile', async ({ page }) => {
